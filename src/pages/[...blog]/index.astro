@@ -7,6 +7,9 @@ import Layout from '~/layouts/PageLayout.astro';
 import SinglePost from '~/components/blog/SinglePost.astro';
 import ToBlogLink from '~/components/blog/ToBlogLink.astro';
 
+import Header from '~/components/widgets/Header.astro';
+
+
 import { getCanonical, getPermalink } from '~/utils/permalinks';
 import { getStaticPathsBlogPost, blogPostRobots } from '~/utils/blog';
 import { findImage } from '~/utils/images';
@@ -46,6 +49,25 @@ const metadata = merge(
 ---
 
 <Layout metadata={metadata}>
+  <Fragment slot="header">
+    <Header
+      links={[
+        { text: 'Home', href: '/' },
+        { text: 'About', href: '/#about' },
+        { text: 'Work History', href: '/#work-history' },
+        { text: 'Blog', href: '/blog' },
+        { text: 'LinkedIn', href: 'https://www.linkedin.com/in/andrewbartlettemery' },
+      ]}
+      actions={[
+        {
+          text: 'Contact Me',
+          href: '/#contact',
+        },
+      ]}
+      isSticky
+      showToggleTheme
+    />
+  </Fragment>
   <SinglePost post={{ ...post, image: image }} url={url}>
     {post.Content ? <post.Content /> : <Fragment set:html={post.content || ''} />}
   </SinglePost>
